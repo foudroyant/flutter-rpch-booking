@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "731810484924",
+    "project_id": "rpch-booking-49ca9",
+    "storage_bucket": "rpch-booking-49ca9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731810484924:android:b6bbc3f438a7a8b1e136b9",
+        "android_client_info": {
+          "package_name": "com.bambyno.rpchbooking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJCWH2fkbKHrcjdo3xvki8hmKwRmipgvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731810484924:android:6108af03806a42dde136b9",
+        "android_client_info": {
+          "package_name": "com.example.rpch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJCWH2fkbKHrcjdo3xvki8hmKwRmipgvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
