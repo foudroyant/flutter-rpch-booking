@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -287,7 +288,7 @@ class _HistoriqueWidgetState extends State<HistoriqueWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 12.0),
                                 child: Text(
-                                  'Transaction Breakdown',
+                                  'Répartition des transactions',
                                   style: FlutterFlowTheme.of(context).bodyLarge,
                                 ),
                               ),
@@ -383,6 +384,41 @@ class _HistoriqueWidgetState extends State<HistoriqueWidget> {
                                   style: FlutterFlowTheme.of(context).bodyLarge,
                                 ),
                               ),
+                              if (listViewReservationsRecord.statut ==
+                                  'En attente')
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 5.0, 0.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      await launchURL(
+                                          'https://rpch-payement.netlify.app/?reservation=reservations/${listViewReservationsRecord.reference.id}');
+                                    },
+                                    text: 'Payer',
+                                    options: FFButtonOptions(
+                                      width: double.infinity,
+                                      height: 40.0,
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: FlutterFlowTheme.of(context).error,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Colors.white,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
                         ),

@@ -116,28 +116,28 @@ class _BiographieWidgetState extends State<BiographieWidget> {
                           color: FlutterFlowTheme.of(context).primary,
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium,
@@ -160,28 +160,28 @@ class _BiographieWidgetState extends State<BiographieWidget> {
                           color: FlutterFlowTheme.of(context).primary,
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium,
@@ -204,28 +204,28 @@ class _BiographieWidgetState extends State<BiographieWidget> {
                           color: FlutterFlowTheme.of(context).primary,
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium,

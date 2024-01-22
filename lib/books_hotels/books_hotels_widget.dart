@@ -86,7 +86,23 @@ class _BooksHotelsWidgetState extends State<BooksHotelsWidget>
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [
+            FlutterFlowIconButton(
+              borderColor: FlutterFlowTheme.of(context).primary,
+              borderRadius: 20.0,
+              borderWidth: 1.0,
+              buttonSize: 40.0,
+              fillColor: FlutterFlowTheme.of(context).accent1,
+              icon: Icon(
+                Icons.menu,
+                color: FlutterFlowTheme.of(context).info,
+                size: 24.0,
+              ),
+              onPressed: () async {
+                context.pushNamed('GestionHotels');
+              },
+            ),
+          ],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -121,6 +137,9 @@ class _BooksHotelsWidgetState extends State<BooksHotelsWidget>
                     ),
                   ],
                   controller: _model.tabBarController,
+                  onTap: (i) async {
+                    [() async {}, () async {}][i]();
+                  },
                 ),
               ),
               Expanded(

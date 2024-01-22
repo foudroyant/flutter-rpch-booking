@@ -1,0 +1,52 @@
+import 'dart:convert';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'lat_lng.dart';
+import 'place.dart';
+import 'uploaded_file.dart';
+import '/backend/backend.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '/auth/firebase_auth/auth_util.dart';
+
+List<String>? retourneTableau(String? chaine) {
+  // e veux split un string par ";"
+  if (chaine == null) {
+    return [];
+  }
+  return chaine.split(';');
+}
+
+String? retourneChaine(List<String>? liste) {
+  // Retourne une chaine des éléments de la liste separés par des";"
+  if (liste == null) {
+    return "";
+  }
+  return liste.join(';');
+}
+
+double? nbreDeJoursEntre(
+  DateTime? start,
+  DateTime? end,
+) {
+  // soustraction de date end et start et renvoie le nombre de jour
+  if (start == null || end == null) {
+    return null;
+  }
+  final difference = end.difference(start);
+  return difference.inDays.toDouble();
+}
+
+double? montantTotal(
+  double? jours,
+  double? montant,
+) {
+  // renvoie le produit des parametres
+  if (jours == null || montant == null) {
+    return 0;
+  }
+  return jours * montant;
+}

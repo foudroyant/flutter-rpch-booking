@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'profil_model.dart';
 export 'profil_model.dart';
 
@@ -172,13 +173,14 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                         enableDrag: false,
                         context: context,
                         builder: (context) {
-                          return Padding(
+                          return WebViewAware(
+                              child: Padding(
                             padding: MediaQuery.viewInsetsOf(context),
                             child: SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.5,
                               child: const UpdateProfilWidget(),
                             ),
-                          );
+                          ));
                         },
                       ).then((value) => safeSetState(() {}));
                     },

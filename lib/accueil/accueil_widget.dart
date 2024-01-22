@@ -1,4 +1,6 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/update_profil_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'accueil_model.dart';
 export 'accueil_model.dart';
 
@@ -64,6 +67,252 @@ class _AccueilWidgetState extends State<AccueilWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        drawer: WebViewAware(
+            child: Drawer(
+          elevation: 16.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              AuthUserStreamWidget(
+                builder: (context) => Container(
+                  width: double.infinity,
+                  height: 150.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.network(
+                        currentUserPhoto,
+                      ).image,
+                    ),
+                  ),
+                ),
+              ),
+              AuthUserStreamWidget(
+                builder: (context) => ListTile(
+                  title: Text(
+                    currentUserDisplayName,
+                    style: FlutterFlowTheme.of(context).labelLarge.override(
+                          fontFamily: 'Readex Pro',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                  ),
+                  subtitle: Text(
+                    currentUserEmail,
+                    style: FlutterFlowTheme.of(context).labelMedium,
+                  ),
+                  tileColor: FlutterFlowTheme.of(context).secondaryBackground,
+                  dense: false,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    await showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: FlutterFlowTheme.of(context).info,
+                      enableDrag: false,
+                      context: context,
+                      builder: (context) {
+                        return WebViewAware(
+                            child: GestureDetector(
+                          onTap: () => _model.unfocusNode.canRequestFocus
+                              ? FocusScope.of(context)
+                                  .requestFocus(_model.unfocusNode)
+                              : FocusScope.of(context).unfocus(),
+                          child: Padding(
+                            padding: MediaQuery.viewInsetsOf(context),
+                            child: SizedBox(
+                              height: MediaQuery.sizeOf(context).height * 0.5,
+                              child: const UpdateProfilWidget(),
+                            ),
+                          ),
+                        ));
+                      },
+                    ).then((value) => safeSetState(() {}));
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 60.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Editer Profil',
+                            style: FlutterFlowTheme.of(context).bodyLarge,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    if (currentUserEmail.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Email required!',
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+                    await authManager.resetPassword(
+                      email: currentUserEmail,
+                      context: context,
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 60.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Modifier Mot de Passe',
+                            style: FlutterFlowTheme.of(context).bodyLarge,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              if (valueOrDefault<bool>(currentUserDocument?.admin, false) ==
+                  true)
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                  child: AuthUserStreamWidget(
+                    builder: (context) => InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed('BooksHotels');
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 4.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'Administration',
+                                style: FlutterFlowTheme.of(context).bodyLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed('Historique');
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 60.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Historique',
+                            style: FlutterFlowTheme.of(context).bodyLarge,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed('TermsEtConditions');
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 60.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Tems & Conditions',
+                            style: FlutterFlowTheme.of(context).bodyLarge,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [
@@ -73,6 +322,21 @@ class _AccueilWidgetState extends State<AccueilWidget>
               snap: false,
               backgroundColor: FlutterFlowTheme.of(context).primary,
               automaticallyImplyLeading: false,
+              leading: FlutterFlowIconButton(
+                borderColor: FlutterFlowTheme.of(context).primary,
+                borderRadius: 20.0,
+                borderWidth: 1.0,
+                buttonSize: 40.0,
+                fillColor: FlutterFlowTheme.of(context).accent1,
+                icon: Icon(
+                  Icons.menu,
+                  color: FlutterFlowTheme.of(context).primaryBtnText,
+                  size: 24.0,
+                ),
+                onPressed: () async {
+                  scaffoldKey.currentState!.openDrawer();
+                },
+              ),
               actions: [
                 FlutterFlowIconButton(
                   borderColor: FlutterFlowTheme.of(context).primary,
@@ -81,21 +345,16 @@ class _AccueilWidgetState extends State<AccueilWidget>
                   buttonSize: 40.0,
                   fillColor: FlutterFlowTheme.of(context).accent1,
                   icon: Icon(
-                    Icons.person_3,
-                    color: FlutterFlowTheme.of(context).info,
+                    Icons.lock_outline,
+                    color: FlutterFlowTheme.of(context).error,
                     size: 24.0,
                   ),
                   onPressed: () async {
-                    context.pushNamed(
-                      'Profil',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: const TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.scale,
-                          alignment: Alignment.bottomCenter,
-                        ),
-                      },
-                    );
+                    GoRouter.of(context).prepareAuthEvent();
+                    await authManager.signOut();
+                    GoRouter.of(context).clearRedirectLocation();
+
+                    context.goNamedAuth('Authentification', context.mounted);
                   },
                 ),
               ],
@@ -238,6 +497,9 @@ class _AccueilWidgetState extends State<AccueilWidget>
                                 ),
                               ],
                               controller: _model.tabBarController,
+                              onTap: (i) async {
+                                [() async {}, () async {}, () async {}][i]();
+                              },
                             ),
                           ),
                           Expanded(
@@ -270,190 +532,194 @@ class _AccueilWidgetState extends State<AccueilWidget>
                                             );
                                           }
                                           List<HotelsRecord>
-                                              listViewHotelsRecordList =
+                                              columnHotelsRecordList =
                                               snapshot.data!;
-                                          return ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount:
-                                                listViewHotelsRecordList.length,
-                                            itemBuilder:
-                                                (context, listViewIndex) {
-                                              final listViewHotelsRecord =
-                                                  listViewHotelsRecordList[
-                                                      listViewIndex];
-                                              return InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context.pushNamed(
-                                                    'DetailsHotel',
-                                                    queryParameters: {
-                                                      'hotel': serializeParam(
-                                                        listViewHotelsRecord,
-                                                        ParamType.Document,
-                                                      ),
-                                                    }.withoutNulls,
-                                                    extra: <String, dynamic>{
-                                                      'hotel':
-                                                          listViewHotelsRecord,
-                                                    },
-                                                  );
-                                                },
-                                                child: Container(
-                                                  width: double.infinity,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 12.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      16.0,
-                                                                      8.0,
-                                                                      16.0,
-                                                                      12.0),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0),
-                                                            child:
-                                                                CachedNetworkImage(
-                                                              fadeInDuration:
-                                                                  const Duration(
-                                                                      milliseconds:
-                                                                          500),
-                                                              fadeOutDuration:
-                                                                  const Duration(
-                                                                      milliseconds:
-                                                                          500),
-                                                              imageUrl:
-                                                                  listViewHotelsRecord
-                                                                      .image,
-                                                              width: double
-                                                                  .infinity,
-                                                              height: 230.0,
-                                                              fit: BoxFit.cover,
+                                          return SingleChildScrollView(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: List.generate(
+                                                  columnHotelsRecordList.length,
+                                                  (columnIndex) {
+                                                final columnHotelsRecord =
+                                                    columnHotelsRecordList[
+                                                        columnIndex];
+                                                return InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                      'DetailsHotel',
+                                                      queryParameters: {
+                                                        'hotel': serializeParam(
+                                                          columnHotelsRecord,
+                                                          ParamType.Document,
+                                                        ),
+                                                      }.withoutNulls,
+                                                      extra: <String, dynamic>{
+                                                        'hotel':
+                                                            columnHotelsRecord,
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  12.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        8.0,
+                                                                        16.0,
+                                                                        12.0),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          16.0),
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                fadeInDuration:
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            500),
+                                                                fadeOutDuration:
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            500),
+                                                                imageUrl:
+                                                                    columnHotelsRecord
+                                                                        .image,
+                                                                width: double
+                                                                    .infinity,
+                                                                height: 230.0,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      16.0,
-                                                                      0.0,
-                                                                      16.0,
-                                                                      4.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                listViewHotelsRecord
-                                                                    .nom,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyLarge,
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            16.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  '\$${listViewHotelsRecord.prixMoyen.toString()}/nuit',
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        0.0,
+                                                                        16.0,
+                                                                        4.0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                  columnHotelsRecord
+                                                                      .nom,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .titleLarge,
+                                                                      .bodyLarge,
                                                                 ),
-                                                              ),
-                                                            ],
+                                                                Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          16.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    '\$${columnHotelsRecord.prixMoyen.toString()}/nuit',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleLarge,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      16.0,
-                                                                      0.0,
-                                                                      16.0,
-                                                                      4.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Expanded(
-                                                                child: Text(
-                                                                  listViewHotelsRecord
-                                                                      .localisation,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium,
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        0.0,
+                                                                        16.0,
+                                                                        4.0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    columnHotelsRecord
+                                                                        .localisation,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium,
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            16.0,
-                                                                            4.0,
-                                                                            4.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  '4.25',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium,
+                                                                Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          16.0,
+                                                                          4.0,
+                                                                          4.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    '4.25',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium,
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .star_rounded,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                size: 24.0,
-                                                              ),
-                                                            ],
+                                                                Icon(
+                                                                  Icons
+                                                                      .star_rounded,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  size: 24.0,
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              );
-                                            },
+                                                );
+                                              }),
+                                            ),
                                           );
                                         },
                                       ),

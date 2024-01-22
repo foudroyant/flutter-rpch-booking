@@ -149,6 +149,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'BooksHotelsCopy',
           path: '/booksHotelsCopy',
           builder: (context, params) => const BooksHotelsCopyWidget(),
+        ),
+        FFRoute(
+          name: 'Payement',
+          path: '/payement',
+          asyncParams: {
+            'book': getDoc(['reservations'], ReservationsRecord.fromSnapshot),
+          },
+          builder: (context, params) => PayementWidget(
+            book: params.getParam('book', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'GestionHotels',
+          path: '/gestionHotels',
+          builder: (context, params) => const GestionHotelsWidget(),
+        ),
+        FFRoute(
+          name: 'GestionChambres',
+          path: '/gestionChambres',
+          asyncParams: {
+            'hotel': getDoc(['hotels'], HotelsRecord.fromSnapshot),
+          },
+          builder: (context, params) => GestionChambresWidget(
+            hotel: params.getParam('hotel', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -331,8 +356,8 @@ class FFRoute {
               ? Container(
                   color: Colors.transparent,
                   child: Image.asset(
-                    'assets/images/logo_blanc.jpg',
-                    fit: BoxFit.contain,
+                    'assets/images/Design_sans_titre.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;

@@ -7,7 +7,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'authentification_model.dart';
 export 'authentification_model.dart';
@@ -165,7 +164,7 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget>
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'Bienvenue de retour !',
+                              'Bienvenue !',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context).displaySmall,
                             ),
@@ -353,116 +352,6 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget>
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 24.0),
-                              child: Text(
-                                'Or sign in with',
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context).labelMedium,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 16.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  GoRouter.of(context).prepareAuthEvent();
-                                  final user = await authManager
-                                      .signInWithGoogle(context);
-                                  if (user == null) {
-                                    return;
-                                  }
-
-                                  context.goNamedAuth(
-                                      'Accueil', context.mounted);
-                                },
-                                text: 'Continue with Google',
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.google,
-                                  size: 20.0,
-                                ),
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 44.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  hoverColor: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                ),
-                              ),
-                            ),
-                            isAndroid
-                                ? Container()
-                                : Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 16.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        GoRouter.of(context).prepareAuthEvent();
-                                        final user = await authManager
-                                            .signInWithApple(context);
-                                        if (user == null) {
-                                          return;
-                                        }
-
-                                        context.goNamedAuth(
-                                            'Accueil', context.mounted);
-                                      },
-                                      text: 'Continue with Apple',
-                                      icon: const FaIcon(
-                                        FontAwesomeIcons.apple,
-                                        size: 20.0,
-                                      ),
-                                      options: FFButtonOptions(
-                                        width: double.infinity,
-                                        height: 44.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                        elevation: 0.0,
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        hoverColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                    ),
-                                  ),
 
                             // You will have to add an action on this rich text to go to your login page.
                             Padding(

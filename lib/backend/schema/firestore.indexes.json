@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "chambres",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "hotel",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "prix",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
 }

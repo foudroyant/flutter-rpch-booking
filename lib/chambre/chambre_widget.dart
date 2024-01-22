@@ -11,6 +11,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'chambre_model.dart';
 export 'chambre_model.dart';
 
@@ -164,7 +165,8 @@ class _ChambreWidgetState extends State<ChambreWidget>
                     enableDrag: false,
                     context: context,
                     builder: (context) {
-                      return GestureDetector(
+                      return WebViewAware(
+                          child: GestureDetector(
                         onTap: () => _model.unfocusNode.canRequestFocus
                             ? FocusScope.of(context)
                                 .requestFocus(_model.unfocusNode)
@@ -179,7 +181,7 @@ class _ChambreWidgetState extends State<ChambreWidget>
                             ),
                           ),
                         ),
-                      );
+                      ));
                     },
                   ).then((value) => safeSetState(() {}));
                 },

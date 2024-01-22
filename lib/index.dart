@@ -13,3 +13,7 @@ export '/terms_et_conditions/terms_et_conditions_widget.dart'
 export '/books_hotels/books_hotels_widget.dart' show BooksHotelsWidget;
 export '/books_hotels_copy/books_hotels_copy_widget.dart'
     show BooksHotelsCopyWidget;
+export '/payement/payement_widget.dart' show PayementWidget;
+export '/gestion_hotels/gestion_hotels_widget.dart' show GestionHotelsWidget;
+export '/gestion_chambres/gestion_chambres_widget.dart'
+    show GestionChambresWidget;

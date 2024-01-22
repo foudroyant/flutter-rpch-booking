@@ -30,13 +30,15 @@ class _UpdateProfilWidgetState extends State<UpdateProfilWidget> {
     super.initState();
     _model = createModel(context, () => UpdateProfilModel());
 
-    _model.textController1 ??= TextEditingController();
+    _model.textController1 ??=
+        TextEditingController(text: currentUserDisplayName);
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
+    _model.textController2 ??= TextEditingController(text: currentPhoneNumber);
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController();
+    _model.textController3 ??= TextEditingController(
+        text: valueOrDefault(currentUserDocument?.biographie, ''));
     _model.textFieldFocusNode3 ??= FocusNode();
   }
 
@@ -62,201 +64,207 @@ class _UpdateProfilWidgetState extends State<UpdateProfilWidget> {
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-            child: TextFormField(
-              controller: _model.textController1,
-              focusNode: _model.textFieldFocusNode1,
-              onChanged: (_) => EasyDebounce.debounce(
-                '_model.textController1',
-                const Duration(milliseconds: 2000),
-                () => setState(() {}),
+            child: AuthUserStreamWidget(
+              builder: (context) => TextFormField(
+                controller: _model.textController1,
+                focusNode: _model.textFieldFocusNode1,
+                onChanged: (_) => EasyDebounce.debounce(
+                  '_model.textController1',
+                  const Duration(milliseconds: 2000),
+                  () => setState(() {}),
+                ),
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'Nom & Prénom',
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintText: 'Nom & Prénom',
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primary,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+                  suffixIcon: _model.textController1!.text.isNotEmpty
+                      ? InkWell(
+                          onTap: () async {
+                            _model.textController1?.clear();
+                            setState(() {});
+                          },
+                          child: Icon(
+                            Icons.clear,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 22,
+                          ),
+                        )
+                      : null,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium,
+                validator: _model.textController1Validator.asValidator(context),
               ),
-              obscureText: false,
-              decoration: InputDecoration(
-                labelText: 'Nom & Prénom',
-                labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                hintText: 'Nom & Prénom',
-                hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).alternate,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                prefixIcon: Icon(
-                  Icons.person,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
-                suffixIcon: _model.textController1!.text.isNotEmpty
-                    ? InkWell(
-                        onTap: () async {
-                          _model.textController1?.clear();
-                          setState(() {});
-                        },
-                        child: Icon(
-                          Icons.clear,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 22,
-                        ),
-                      )
-                    : null,
-              ),
-              style: FlutterFlowTheme.of(context).bodyMedium,
-              validator: _model.textController1Validator.asValidator(context),
             ),
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-            child: TextFormField(
-              controller: _model.textController2,
-              focusNode: _model.textFieldFocusNode2,
-              onChanged: (_) => EasyDebounce.debounce(
-                '_model.textController2',
-                const Duration(milliseconds: 2000),
-                () => setState(() {}),
+            child: AuthUserStreamWidget(
+              builder: (context) => TextFormField(
+                controller: _model.textController2,
+                focusNode: _model.textFieldFocusNode2,
+                onChanged: (_) => EasyDebounce.debounce(
+                  '_model.textController2',
+                  const Duration(milliseconds: 2000),
+                  () => setState(() {}),
+                ),
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'Téléphone',
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintText: 'Téléphone',
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primary,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.phone_sharp,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+                  suffixIcon: _model.textController2!.text.isNotEmpty
+                      ? InkWell(
+                          onTap: () async {
+                            _model.textController2?.clear();
+                            setState(() {});
+                          },
+                          child: Icon(
+                            Icons.clear,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 22,
+                          ),
+                        )
+                      : null,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium,
+                keyboardType: TextInputType.phone,
+                validator: _model.textController2Validator.asValidator(context),
               ),
-              obscureText: false,
-              decoration: InputDecoration(
-                labelText: 'Téléphone',
-                labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                hintText: 'Téléphone',
-                hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).alternate,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                prefixIcon: Icon(
-                  Icons.phone_sharp,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
-                suffixIcon: _model.textController2!.text.isNotEmpty
-                    ? InkWell(
-                        onTap: () async {
-                          _model.textController2?.clear();
-                          setState(() {});
-                        },
-                        child: Icon(
-                          Icons.clear,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 22,
-                        ),
-                      )
-                    : null,
-              ),
-              style: FlutterFlowTheme.of(context).bodyMedium,
-              keyboardType: TextInputType.phone,
-              validator: _model.textController2Validator.asValidator(context),
             ),
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-            child: TextFormField(
-              controller: _model.textController3,
-              focusNode: _model.textFieldFocusNode3,
-              onChanged: (_) => EasyDebounce.debounce(
-                '_model.textController3',
-                const Duration(milliseconds: 2000),
-                () => setState(() {}),
+            child: AuthUserStreamWidget(
+              builder: (context) => TextFormField(
+                controller: _model.textController3,
+                focusNode: _model.textFieldFocusNode3,
+                onChanged: (_) => EasyDebounce.debounce(
+                  '_model.textController3',
+                  const Duration(milliseconds: 2000),
+                  () => setState(() {}),
+                ),
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'Decrivez-vous',
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintText: 'Biographie',
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primary,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  suffixIcon: _model.textController3!.text.isNotEmpty
+                      ? InkWell(
+                          onTap: () async {
+                            _model.textController3?.clear();
+                            setState(() {});
+                          },
+                          child: Icon(
+                            Icons.clear,
+                            color: FlutterFlowTheme.of(context).info,
+                            size: 22,
+                          ),
+                        )
+                      : null,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium,
+                maxLines: 5,
+                minLines: 3,
+                maxLength: 200,
+                keyboardType: TextInputType.multiline,
+                validator: _model.textController3Validator.asValidator(context),
               ),
-              obscureText: false,
-              decoration: InputDecoration(
-                labelText: 'Decrivez-vous',
-                labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                hintText: 'Biographie',
-                hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).alternate,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                suffixIcon: _model.textController3!.text.isNotEmpty
-                    ? InkWell(
-                        onTap: () async {
-                          _model.textController3?.clear();
-                          setState(() {});
-                        },
-                        child: Icon(
-                          Icons.clear,
-                          color: FlutterFlowTheme.of(context).info,
-                          size: 22,
-                        ),
-                      )
-                    : null,
-              ),
-              style: FlutterFlowTheme.of(context).bodyMedium,
-              maxLines: 5,
-              minLines: 3,
-              maxLength: 200,
-              keyboardType: TextInputType.multiline,
-              validator: _model.textController3Validator.asValidator(context),
             ),
           ),
           FFButtonWidget(
