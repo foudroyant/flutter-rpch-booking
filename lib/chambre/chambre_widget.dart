@@ -348,12 +348,6 @@ class _ChambreWidgetState extends State<ChambreWidget>
                                           fontSize: 14.0,
                                         ),
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 20.0,
-                                  ),
                                   tileColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   dense: false,
@@ -400,12 +394,6 @@ class _ChambreWidgetState extends State<ChambreWidget>
                                         fontFamily: 'Outfit',
                                         fontSize: 14.0,
                                       ),
-                                ),
-                                trailing: Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 20.0,
                                 ),
                                 tileColor: FlutterFlowTheme.of(context)
                                     .secondaryBackground,

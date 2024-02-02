@@ -279,12 +279,6 @@ class _DetailsHotelWidgetState extends State<DetailsHotelWidget>
                                             fontSize: 14.0,
                                           ),
                                     ),
-                                    trailing: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 20.0,
-                                    ),
                                     tileColor: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     dense: false,
@@ -334,12 +328,6 @@ class _DetailsHotelWidgetState extends State<DetailsHotelWidget>
                                           fontFamily: 'Outfit',
                                           fontSize: 14.0,
                                         ),
-                                  ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 20.0,
                                   ),
                                   tileColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
