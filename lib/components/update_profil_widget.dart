@@ -13,7 +13,7 @@ class UpdateProfilWidget extends StatefulWidget {
   const UpdateProfilWidget({super.key});
 
   @override
-  _UpdateProfilWidgetState createState() => _UpdateProfilWidgetState();
+  State<UpdateProfilWidget> createState() => _UpdateProfilWidgetState();
 }
 
 class _UpdateProfilWidgetState extends State<UpdateProfilWidget> {

@@ -22,7 +22,7 @@ class DateRangeWidget extends StatefulWidget {
   final double? ht;
 
   @override
-  _DateRangeWidgetState createState() => _DateRangeWidgetState();
+  State<DateRangeWidget> createState() => _DateRangeWidgetState();
 }
 
 class _DateRangeWidgetState extends State<DateRangeWidget> {
@@ -289,22 +289,24 @@ class _DateRangeWidgetState extends State<DateRangeWidget> {
                       context: context,
                       builder: (alertDialogContext) {
                         return WebViewAware(
-                            child: AlertDialog(
-                          title: const Text('Reservation'),
-                          content: const Text('Voulez-vous reserver cette chambre?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext, false),
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext, true),
-                              child: const Text('Confirm'),
-                            ),
-                          ],
-                        ));
+                          child: AlertDialog(
+                            title: const Text('Reservation'),
+                            content:
+                                const Text('Voulez-vous reserver cette chambre?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext, false),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext, true),
+                                child: const Text('Confirm'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ) ??
                     false;

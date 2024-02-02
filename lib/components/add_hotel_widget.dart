@@ -19,7 +19,7 @@ class AddHotelWidget extends StatefulWidget {
   final String? work;
 
   @override
-  _AddHotelWidgetState createState() => _AddHotelWidgetState();
+  State<AddHotelWidget> createState() => _AddHotelWidgetState();
 }
 
 class _AddHotelWidgetState extends State<AddHotelWidget> {

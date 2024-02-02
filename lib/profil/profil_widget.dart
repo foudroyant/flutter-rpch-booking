@@ -14,7 +14,7 @@ class ProfilWidget extends StatefulWidget {
   const ProfilWidget({super.key});
 
   @override
-  _ProfilWidgetState createState() => _ProfilWidgetState();
+  State<ProfilWidget> createState() => _ProfilWidgetState();
 }
 
 class _ProfilWidgetState extends State<ProfilWidget> {
@@ -174,13 +174,14 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                         context: context,
                         builder: (context) {
                           return WebViewAware(
-                              child: Padding(
-                            padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
-                              height: MediaQuery.sizeOf(context).height * 0.5,
-                              child: const UpdateProfilWidget(),
+                            child: Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: SizedBox(
+                                height: MediaQuery.sizeOf(context).height * 0.5,
+                                child: const UpdateProfilWidget(),
+                              ),
                             ),
-                          ));
+                          );
                         },
                       ).then((value) => safeSetState(() {}));
                     },

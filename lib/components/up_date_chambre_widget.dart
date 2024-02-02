@@ -17,7 +17,7 @@ class UpDateChambreWidget extends StatefulWidget {
   final ChambresRecord? chambre;
 
   @override
-  _UpDateChambreWidgetState createState() => _UpDateChambreWidgetState();
+  State<UpDateChambreWidget> createState() => _UpDateChambreWidgetState();
 }
 
 class _UpDateChambreWidgetState extends State<UpDateChambreWidget> {

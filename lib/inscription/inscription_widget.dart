@@ -14,7 +14,7 @@ class InscriptionWidget extends StatefulWidget {
   const InscriptionWidget({super.key});
 
   @override
-  _InscriptionWidgetState createState() => _InscriptionWidgetState();
+  State<InscriptionWidget> createState() => _InscriptionWidgetState();
 }
 
 class _InscriptionWidgetState extends State<InscriptionWidget>

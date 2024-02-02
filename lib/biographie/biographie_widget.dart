@@ -22,7 +22,7 @@ class BiographieWidget extends StatefulWidget {
   final String? password;
 
   @override
-  _BiographieWidgetState createState() => _BiographieWidgetState();
+  State<BiographieWidget> createState() => _BiographieWidgetState();
 }
 
 class _BiographieWidgetState extends State<BiographieWidget> {

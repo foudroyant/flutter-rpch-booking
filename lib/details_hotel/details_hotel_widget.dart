@@ -21,7 +21,7 @@ class DetailsHotelWidget extends StatefulWidget {
   final HotelsRecord? hotel;
 
   @override
-  _DetailsHotelWidgetState createState() => _DetailsHotelWidgetState();
+  State<DetailsHotelWidget> createState() => _DetailsHotelWidgetState();
 }
 
 class _DetailsHotelWidgetState extends State<DetailsHotelWidget>

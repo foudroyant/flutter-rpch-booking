@@ -21,7 +21,7 @@ class AddChambreWidget extends StatefulWidget {
   final String? hotel;
 
   @override
-  _AddChambreWidgetState createState() => _AddChambreWidgetState();
+  State<AddChambreWidget> createState() => _AddChambreWidgetState();
 }
 
 class _AddChambreWidgetState extends State<AddChambreWidget> {

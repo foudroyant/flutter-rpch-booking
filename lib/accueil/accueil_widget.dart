@@ -16,7 +16,7 @@ class AccueilWidget extends StatefulWidget {
   const AccueilWidget({super.key});
 
   @override
-  _AccueilWidgetState createState() => _AccueilWidgetState();
+  State<AccueilWidget> createState() => _AccueilWidgetState();
 }
 
 class _AccueilWidgetState extends State<AccueilWidget>
@@ -67,252 +67,259 @@ class _AccueilWidgetState extends State<AccueilWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        drawer: WebViewAware(
-            child: Drawer(
+        drawer: Drawer(
           elevation: 16.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              AuthUserStreamWidget(
-                builder: (context) => Container(
-                  width: double.infinity,
-                  height: 150.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: Image.network(
-                        currentUserPhoto,
-                      ).image,
-                    ),
-                  ),
-                ),
-              ),
-              AuthUserStreamWidget(
-                builder: (context) => ListTile(
-                  title: Text(
-                    currentUserDisplayName,
-                    style: FlutterFlowTheme.of(context).labelLarge.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                  ),
-                  subtitle: Text(
-                    currentUserEmail,
-                    style: FlutterFlowTheme.of(context).labelMedium,
-                  ),
-                  tileColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  dense: false,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    await showModalBottomSheet(
-                      isScrollControlled: true,
-                      backgroundColor: FlutterFlowTheme.of(context).info,
-                      enableDrag: false,
-                      context: context,
-                      builder: (context) {
-                        return WebViewAware(
-                            child: GestureDetector(
-                          onTap: () => _model.unfocusNode.canRequestFocus
-                              ? FocusScope.of(context)
-                                  .requestFocus(_model.unfocusNode)
-                              : FocusScope.of(context).unfocus(),
-                          child: Padding(
-                            padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
-                              height: MediaQuery.sizeOf(context).height * 0.5,
-                              child: const UpdateProfilWidget(),
-                            ),
-                          ),
-                        ));
-                      },
-                    ).then((value) => safeSetState(() {}));
-                  },
-                  child: Container(
+          child: WebViewAware(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                AuthUserStreamWidget(
+                  builder: (context) => Container(
                     width: double.infinity,
-                    height: 60.0,
+                    height: 150.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Editer Profil',
-                            style: FlutterFlowTheme.of(context).bodyLarge,
-                          ),
-                        ],
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: Image.network(
+                          currentUserPhoto,
+                        ).image,
                       ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    if (currentUserEmail.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'Email required!',
+                AuthUserStreamWidget(
+                  builder: (context) => ListTile(
+                    title: Text(
+                      currentUserDisplayName,
+                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                            fontFamily: 'Readex Pro',
+                            color: FlutterFlowTheme.of(context).primaryText,
                           ),
-                        ),
-                      );
-                      return;
-                    }
-                    await authManager.resetPassword(
-                      email: currentUserEmail,
-                      context: context,
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Modifier Mot de Passe',
-                            style: FlutterFlowTheme.of(context).bodyLarge,
-                          ),
-                        ],
-                      ),
+                    subtitle: Text(
+                      currentUserEmail,
+                      style: FlutterFlowTheme.of(context).labelMedium,
                     ),
+                    tileColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    dense: false,
                   ),
                 ),
-              ),
-              if (valueOrDefault<bool>(currentUserDocument?.admin, false) ==
-                  true)
                 Padding(
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                  child: AuthUserStreamWidget(
-                    builder: (context) => InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.pushNamed('BooksHotels');
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 60.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 4.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Administration',
-                                style: FlutterFlowTheme.of(context).bodyLarge,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: FlutterFlowTheme.of(context).info,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return WebViewAware(
+                            child: GestureDetector(
+                              onTap: () => _model.unfocusNode.canRequestFocus
+                                  ? FocusScope.of(context)
+                                      .requestFocus(_model.unfocusNode)
+                                  : FocusScope.of(context).unfocus(),
+                              child: Padding(
+                                padding: MediaQuery.viewInsetsOf(context),
+                                child: SizedBox(
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.5,
+                                  child: const UpdateProfilWidget(),
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                          );
+                        },
+                      ).then((value) => safeSetState(() {}));
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Editer Profil',
+                              style: FlutterFlowTheme.of(context).bodyLarge,
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    context.pushNamed('Historique');
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Historique',
-                            style: FlutterFlowTheme.of(context).bodyLarge,
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      if (currentUserEmail.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Email required!',
+                            ),
                           ),
-                        ],
+                        );
+                        return;
+                      }
+                      await authManager.resetPassword(
+                        email: currentUserEmail,
+                        context: context,
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Modifier Mot de Passe',
+                              style: FlutterFlowTheme.of(context).bodyLarge,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    context.pushNamed('TermsEtConditions');
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Tems & Conditions',
-                            style: FlutterFlowTheme.of(context).bodyLarge,
+                if (valueOrDefault<bool>(currentUserDocument?.admin, false) ==
+                    true)
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                    child: AuthUserStreamWidget(
+                      builder: (context) => InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('BooksHotels');
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 60.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                        ],
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 4.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Administration',
+                                  style: FlutterFlowTheme.of(context).bodyLarge,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('Historique');
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Historique',
+                              style: FlutterFlowTheme.of(context).bodyLarge,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('TermsEtConditions');
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 4.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Tems & Conditions',
+                              style: FlutterFlowTheme.of(context).bodyLarge,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [

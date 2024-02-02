@@ -18,7 +18,7 @@ class PayementWidget extends StatefulWidget {
   final ReservationsRecord? book;
 
   @override
-  _PayementWidgetState createState() => _PayementWidgetState();
+  State<PayementWidget> createState() => _PayementWidgetState();
 }
 
 class _PayementWidgetState extends State<PayementWidget> {

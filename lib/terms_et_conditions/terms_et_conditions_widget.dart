@@ -11,7 +11,7 @@ class TermsEtConditionsWidget extends StatefulWidget {
   const TermsEtConditionsWidget({super.key});
 
   @override
-  _TermsEtConditionsWidgetState createState() =>
+  State<TermsEtConditionsWidget> createState() =>
       _TermsEtConditionsWidgetState();
 }
 

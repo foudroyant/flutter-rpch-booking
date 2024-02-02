@@ -21,7 +21,7 @@ class GestionChambresWidget extends StatefulWidget {
   final HotelsRecord? hotel;
 
   @override
-  _GestionChambresWidgetState createState() => _GestionChambresWidgetState();
+  State<GestionChambresWidget> createState() => _GestionChambresWidgetState();
 }
 
 class _GestionChambresWidgetState extends State<GestionChambresWidget> {
@@ -71,21 +71,23 @@ class _GestionChambresWidgetState extends State<GestionChambresWidget> {
               context: context,
               builder: (context) {
                 return WebViewAware(
-                    child: GestureDetector(
-                  onTap: () => _model.unfocusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                      : FocusScope.of(context).unfocus(),
-                  child: Padding(
-                    padding: MediaQuery.viewInsetsOf(context),
-                    child: SizedBox(
-                      height: MediaQuery.sizeOf(context).height * 0.7,
-                      child: AddChambreWidget(
-                        work: 'add',
-                        hotel: widget.hotel!.reference.id,
+                  child: GestureDetector(
+                    onTap: () => _model.unfocusNode.canRequestFocus
+                        ? FocusScope.of(context)
+                            .requestFocus(_model.unfocusNode)
+                        : FocusScope.of(context).unfocus(),
+                    child: Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height * 0.7,
+                        child: AddChambreWidget(
+                          work: 'add',
+                          hotel: widget.hotel!.reference.id,
+                        ),
                       ),
                     ),
                   ),
-                ));
+                );
               },
             ).then((value) => safeSetState(() {}));
           },
@@ -142,21 +144,22 @@ class _GestionChambresWidgetState extends State<GestionChambresWidget> {
                   context: context,
                   builder: (context) {
                     return WebViewAware(
-                        child: GestureDetector(
-                      onTap: () => _model.unfocusNode.canRequestFocus
-                          ? FocusScope.of(context)
-                              .requestFocus(_model.unfocusNode)
-                          : FocusScope.of(context).unfocus(),
-                      child: Padding(
-                        padding: MediaQuery.viewInsetsOf(context),
-                        child: SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.7,
-                          child: UpDateHotelWidget(
-                            hotel: widget.hotel!,
+                      child: GestureDetector(
+                        onTap: () => _model.unfocusNode.canRequestFocus
+                            ? FocusScope.of(context)
+                                .requestFocus(_model.unfocusNode)
+                            : FocusScope.of(context).unfocus(),
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.7,
+                            child: UpDateHotelWidget(
+                              hotel: widget.hotel!,
+                            ),
                           ),
                         ),
                       ),
-                    ));
+                    );
                   },
                 ).then((value) => safeSetState(() {}));
               },
@@ -216,22 +219,23 @@ class _GestionChambresWidgetState extends State<GestionChambresWidget> {
                           context: context,
                           builder: (context) {
                             return WebViewAware(
-                                child: GestureDetector(
-                              onTap: () => _model.unfocusNode.canRequestFocus
-                                  ? FocusScope.of(context)
-                                      .requestFocus(_model.unfocusNode)
-                                  : FocusScope.of(context).unfocus(),
-                              child: Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 0.7,
-                                  child: UpDateChambreWidget(
-                                    chambre: listViewChambresRecord,
+                              child: GestureDetector(
+                                onTap: () => _model.unfocusNode.canRequestFocus
+                                    ? FocusScope.of(context)
+                                        .requestFocus(_model.unfocusNode)
+                                    : FocusScope.of(context).unfocus(),
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: SizedBox(
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 0.7,
+                                    child: UpDateChambreWidget(
+                                      chambre: listViewChambresRecord,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ));
+                            );
                           },
                         ).then((value) => safeSetState(() {}));
                       },

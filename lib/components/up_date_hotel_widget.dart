@@ -17,7 +17,7 @@ class UpDateHotelWidget extends StatefulWidget {
   final HotelsRecord? hotel;
 
   @override
-  _UpDateHotelWidgetState createState() => _UpDateHotelWidgetState();
+  State<UpDateHotelWidget> createState() => _UpDateHotelWidgetState();
 }
 
 class _UpDateHotelWidgetState extends State<UpDateHotelWidget> {

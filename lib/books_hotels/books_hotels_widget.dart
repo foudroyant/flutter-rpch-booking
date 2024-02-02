@@ -13,7 +13,7 @@ class BooksHotelsWidget extends StatefulWidget {
   const BooksHotelsWidget({super.key});
 
   @override
-  _BooksHotelsWidgetState createState() => _BooksHotelsWidgetState();
+  State<BooksHotelsWidget> createState() => _BooksHotelsWidgetState();
 }
 
 class _BooksHotelsWidgetState extends State<BooksHotelsWidget>

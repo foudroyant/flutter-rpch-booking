@@ -30,6 +30,7 @@ dependencies:
   cloud_firestore: 4.13.1
   cloud_firestore_platform_interface: 6.0.5
   cloud_firestore_web: 3.8.5
+  collection: 1.17.2
   custom_date_range_picker: ^1.0.10
   easy_debounce: 2.0.1
   file_picker: 6.1.1
@@ -145,6 +146,7 @@ flutter:
     - assets/rive_animations/
     - assets/pdfs/
 
+  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
@@ -170,3 +172,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+

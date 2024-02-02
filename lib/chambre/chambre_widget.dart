@@ -24,7 +24,7 @@ class ChambreWidget extends StatefulWidget {
   final ChambresRecord? chambre;
 
   @override
-  _ChambreWidgetState createState() => _ChambreWidgetState();
+  State<ChambreWidget> createState() => _ChambreWidgetState();
 }
 
 class _ChambreWidgetState extends State<ChambreWidget>
@@ -166,22 +166,23 @@ class _ChambreWidgetState extends State<ChambreWidget>
                     context: context,
                     builder: (context) {
                       return WebViewAware(
-                          child: GestureDetector(
-                        onTap: () => _model.unfocusNode.canRequestFocus
-                            ? FocusScope.of(context)
-                                .requestFocus(_model.unfocusNode)
-                            : FocusScope.of(context).unfocus(),
-                        child: Padding(
-                          padding: MediaQuery.viewInsetsOf(context),
-                          child: SizedBox(
-                            height: MediaQuery.sizeOf(context).height * 0.3,
-                            child: DateRangeWidget(
-                              montantTotal: widget.chambre!.prix,
-                              ht: widget.chambre!.prix,
+                        child: GestureDetector(
+                          onTap: () => _model.unfocusNode.canRequestFocus
+                              ? FocusScope.of(context)
+                                  .requestFocus(_model.unfocusNode)
+                              : FocusScope.of(context).unfocus(),
+                          child: Padding(
+                            padding: MediaQuery.viewInsetsOf(context),
+                            child: SizedBox(
+                              height: MediaQuery.sizeOf(context).height * 0.3,
+                              child: DateRangeWidget(
+                                montantTotal: widget.chambre!.prix,
+                                ht: widget.chambre!.prix,
+                              ),
                             ),
                           ),
                         ),
-                      ));
+                      );
                     },
                   ).then((value) => safeSetState(() {}));
                 },

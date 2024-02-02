@@ -14,7 +14,7 @@ class GestionHotelsWidget extends StatefulWidget {
   const GestionHotelsWidget({super.key});
 
   @override
-  _GestionHotelsWidgetState createState() => _GestionHotelsWidgetState();
+  State<GestionHotelsWidget> createState() => _GestionHotelsWidgetState();
 }
 
 class _GestionHotelsWidgetState extends State<GestionHotelsWidget> {
@@ -64,20 +64,22 @@ class _GestionHotelsWidgetState extends State<GestionHotelsWidget> {
               context: context,
               builder: (context) {
                 return WebViewAware(
-                    child: GestureDetector(
-                  onTap: () => _model.unfocusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                      : FocusScope.of(context).unfocus(),
-                  child: Padding(
-                    padding: MediaQuery.viewInsetsOf(context),
-                    child: SizedBox(
-                      height: MediaQuery.sizeOf(context).height * 0.7,
-                      child: const AddHotelWidget(
-                        work: 'add',
+                  child: GestureDetector(
+                    onTap: () => _model.unfocusNode.canRequestFocus
+                        ? FocusScope.of(context)
+                            .requestFocus(_model.unfocusNode)
+                        : FocusScope.of(context).unfocus(),
+                    child: Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height * 0.7,
+                        child: const AddHotelWidget(
+                          work: 'add',
+                        ),
                       ),
                     ),
                   ),
-                ));
+                );
               },
             ).then((value) => safeSetState(() {}));
           },

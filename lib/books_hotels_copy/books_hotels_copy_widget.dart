@@ -12,7 +12,7 @@ class BooksHotelsCopyWidget extends StatefulWidget {
   const BooksHotelsCopyWidget({super.key});
 
   @override
-  _BooksHotelsCopyWidgetState createState() => _BooksHotelsCopyWidgetState();
+  State<BooksHotelsCopyWidget> createState() => _BooksHotelsCopyWidgetState();
 }
 
 class _BooksHotelsCopyWidgetState extends State<BooksHotelsCopyWidget> {
