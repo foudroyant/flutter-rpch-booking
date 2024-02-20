@@ -4,8 +4,9 @@ class HotelModel {
   String description;
   String localisation;
   Map prix;
-  List<String> services_equipements;
-  List<String> images;
+  List services_equipements;
+  List images;
+  bool visible = true;
 
   HotelModel({
     this.id = "",
@@ -25,7 +26,8 @@ class HotelModel {
       "localisation" : localisation,
       "prix" : prix,
       "services_equipements" : services_equipements,
-      "images" : images
+      "images" : images,
+      "visible" : visible
     };
   }
 }

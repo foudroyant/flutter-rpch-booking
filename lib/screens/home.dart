@@ -23,21 +23,33 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  //final db = FirebaseFirestore.instance;
-  final List<HotelModel> _hotels = hotels;
+  final db = FirebaseFirestore.instance;
+  List<HotelModel> _hotels = hotels;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    /*db.collection("hotels").get().then(
+    db.collection("hotels").get().then(
           (querySnapshot) {
         print("Successfully completed");
         for (var docSnapshot in querySnapshot.docs) {
-          print('${docSnapshot.id} => ${docSnapshot.data()}');
+          final _hotel = HotelModel(
+            id: docSnapshot.id,
+            images: docSnapshot.data()["images"],
+            prix: docSnapshot.data()['prix'],
+            description: docSnapshot.data()["description"],
+            services_equipements: docSnapshot.data()["services_equipements"],
+            nom: docSnapshot.data()["nom"],
+            localisation: docSnapshot.data()["localisation"],
+          );
+          setState(() {
+            _hotels.add(_hotel);
+          });
+          print(docSnapshot.data());
         }
       },
       onError: (e) => print("Error completing: $e"),
-    );*/
+    );
   }
 
 
@@ -147,9 +159,10 @@ class _HomeState extends State<Home> {
               height: 220,
               child: ListView.builder(
               scrollDirection: Axis.horizontal,
-                itemCount: _hotels.length-1,
+                itemCount: _hotels.length,
                 itemBuilder: (context, index) {
                 final _hotel = _hotels[index];
+                print(_hotel);
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: GestureDetector(

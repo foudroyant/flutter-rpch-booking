@@ -18,6 +18,9 @@ service cloud.firestore {
       allow read: if true;
       allow write: if false;
       allow delete: if false;
+      match /chambres/{document} {
+        allow read : if request.auth!=null;
+      }
     }
 
     match /users/{document} {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rpchbooking/models/chambre.dart';
 import 'package:rpchbooking/models/hotel.dart';
+import 'package:rpchbooking/models/user.dart';
 import 'package:rpchbooking/providers/chambre.dart';
 import 'package:rpchbooking/providers/hotel.dart';
 import 'package:rpchbooking/providers/reservation.dart';
@@ -15,6 +16,7 @@ class PreviewBook extends StatefulWidget {
 }
 
 class _PreviewBookState extends State<PreviewBook> {
+  //User user = new User(id: id, email: email, name: name, photo: photo);
 
   @override
   Widget build(BuildContext context) {

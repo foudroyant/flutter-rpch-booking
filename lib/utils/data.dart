@@ -3,7 +3,7 @@ import '../models/chambre.dart';
 import '../models/hotel.dart';
 
 List<HotelModel> hotels = [
-  HotelModel(
+  /*HotelModel(
       id : "Bla bla bla",
       nom: "Atlantic Palace",
       description : "Une description pour Atlantic Palace",
@@ -41,11 +41,11 @@ List<HotelModel> hotels = [
       },
       images : ["assets/images/hotel.jpg", "assets/images/hotel.jpg", "assets/images/hotel.jpg"],
       services_equipements : ["Parking gratuit", "Wify", "Netoyage"]
-  )
+  )*/
 ];
 
 List<ChambreModel> chambres = [
-  ChambreModel(
+  /*ChambreModel(
     id: "id de la chambre",
     services_equipements: ["Wify", "Netoyage",],
     description: "Description de la chambre",
@@ -83,7 +83,7 @@ List<ChambreModel> chambres = [
     capacite: 2,
     images: ["assets/images/hotel.jpg", "assets/images/chambre2.jpg"],
     type: "Suite moderne",
-  ),
+  ),*/
 ];
 
 List<AvisModel> avis = [

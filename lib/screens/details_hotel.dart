@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,11 +22,33 @@ class DetailHotel extends StatefulWidget {
 }
 
 class _DetailHotelState extends State<DetailHotel> {
+  final db = FirebaseFirestore.instance;
+  List<ChambreModel> _chambres = chambres;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(widget.hotel.toMap());
+    db.collection("hotels").doc(widget.hotel.id).collection("chambres").get().then(
+          (querySnapshot) {
+        print("Successfully completed");
+        for (var docSnapshot in querySnapshot.docs) {
+          final _chambre = ChambreModel(
+            id: docSnapshot.id,
+            services_equipements: docSnapshot.data()["services_equipements"],
+            description: docSnapshot.data()["description"],
+            prix: docSnapshot.data()["prix"],
+            images: docSnapshot.data()["images"],
+            type: docSnapshot.data()["type"],
+            capacite: docSnapshot.data()["capacite"],
+          );
+          chambres.add(_chambre);
+          print(docSnapshot.data());
+        }
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
   }
 
   @override
@@ -53,7 +76,7 @@ class _DetailHotelState extends State<DetailHotel> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: DecorationImage(
-                            image: AssetImage(
+                            image: NetworkImage(
                               i
                                 //"https://images.trvl-media.com/lodging/17000000/16280000/16271500/16271457/66191826.jpg?impolicy=resizecrop&rw=1200&ra=fit"
                             ),
@@ -117,7 +140,7 @@ class _DetailHotelState extends State<DetailHotel> {
               height: 220,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: chambres.length,
+                itemCount: _chambres.length,
                 itemBuilder: (context, index) {
                   final ChambreModel _chambre = chambres[index];
                   //print(_chambre.toMap());

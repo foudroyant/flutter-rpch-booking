@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:rpchbooking/models/chambre.dart';
 
@@ -15,6 +13,7 @@ class ReservationProvider extends ChangeNotifier {
   late double taxe = 0;
   late HotelModel hotel;
   late Map prix_unitaire;
+  late Map user ;
 
   Map toMap(){
     return {
@@ -29,8 +28,14 @@ class ReservationProvider extends ChangeNotifier {
       "chambre_type" : chambre.type,
       "chambre_img" : chambre.images[0],
       "prix_unitaire" : chambre.prix,
-      "jours" : jours
+      "jours" : jours,
+      "user" : user
     };
+  }
+
+  void setUser(Map newUser){
+    user = newUser;
+    notifyListeners();
   }
 
   void setId(String newId){
