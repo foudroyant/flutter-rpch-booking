@@ -3,9 +3,9 @@ class ChambreModel {
   String type;
   String description;
   Map prix;
-  double capacite;
-  List<String> services_equipements;
-  List<String> images;
+  int capacite;
+  List services_equipements;
+  List images;
 
   ChambreModel({
     this.id = "",

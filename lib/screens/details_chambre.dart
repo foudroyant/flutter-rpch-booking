@@ -1,11 +1,16 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 import 'package:rpchbooking/models/avis.dart';
 import 'package:rpchbooking/models/chambre.dart';
+import 'package:rpchbooking/models/hotel.dart';
+import 'package:rpchbooking/models/reservation.dart';
 import 'package:rpchbooking/providers/chambre.dart';
+import 'package:rpchbooking/providers/hotel.dart';
 import 'package:rpchbooking/providers/reservation.dart';
 import 'package:rpchbooking/screens/preview_book.dart';
 import 'package:rpchbooking/utils/data.dart';
@@ -14,8 +19,9 @@ import 'package:rpchbooking/widgets/card_chambre.dart';
 import 'package:custom_date_range_picker/custom_date_range_picker.dart';
 
 class DetailChambre extends StatefulWidget {
-  const DetailChambre({Key? key, required this.chambre}) : super(key: key);
+  const DetailChambre({Key? key, required this.chambre, required this.hotel}) : super(key: key);
   final ChambreModel chambre;
+  final HotelModel hotel;
 
   @override
   State<DetailChambre> createState() => _DetailChambreState();
@@ -26,17 +32,39 @@ class _DetailChambreState extends State<DetailChambre> {
   DateTime? startDate = null;
   DateTime? endDate = null;
   late List<AvisModel> _avis;
+  late ReservationModel _reservation;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _avis = avis;
+    setState(() {
+      _reservation = ReservationModel(
+          chambre: {
+            "id" : widget.chambre.id,
+            "type" : widget.chambre.type,
+            "image" : widget.chambre.images[0]
+          },
+          hotel: {
+            "id" : widget.hotel.id,
+            "hotel_nom" : widget.hotel.nom
+          },
+          user: {
+            "uid" : FirebaseAuth.instance.currentUser?.uid,
+            "email" : FirebaseAuth.instance.currentUser?.email,
+            "photo" : FirebaseAuth.instance.currentUser?.photoURL,
+            "name" : FirebaseAuth.instance.currentUser?.displayName,
+          },
+          taxe: 0,
+          prix_unitaire: widget.chambre.prix
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       appBar: AppBar(
@@ -58,8 +86,6 @@ class _DetailChambreState extends State<DetailChambre> {
                   endDate = end;
                   startDate = start;
                 });
-                context.read<ReservationProvider>().setDates([start, end]);
-                //print(endDate?.difference(startDate!).inDays);
               },
               onCancelClick: () {
                 setState(() {
@@ -68,11 +94,12 @@ class _DetailChambreState extends State<DetailChambre> {
                 });
               },
             );
+
           }, icon: Icon(Icons.event))
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(10, 5, 10, 60),
+        padding: EdgeInsets.fromLTRB(5, 5, 5, 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -87,7 +114,7 @@ class _DetailChambreState extends State<DetailChambre> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                              image: AssetImage(
+                              image: NetworkImage(
                                 i
                                   //"https://images.trvl-media.com/lodging/17000000/16280000/16271500/16271457/66191826.jpg?impolicy=resizecrop&rw=1200&ra=fit"
                               ),
@@ -144,7 +171,7 @@ class _DetailChambreState extends State<DetailChambre> {
               }).toList()
             ),
 
-            SizedBox(height: 10.0),
+            /*SizedBox(height: 10.0),
             Text(
               'Avis et Commentaires',
               style: TextStyle(
@@ -154,7 +181,7 @@ class _DetailChambreState extends State<DetailChambre> {
             ),
             Column(
               children: _avis.map((e) => CardAvis(avis: e,)).toList(),
-            )
+            )*/
           ],
         ),
       ),
@@ -169,12 +196,15 @@ class _DetailChambreState extends State<DetailChambre> {
                   SnackBar(content: Text("Vous devez d'abord choir une date de réservation"))
               );
             }else{
+              _reservation.setDates([startDate, endDate]);
+              _reservation.setMontant();
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PreviewBook()),
+                MaterialPageRoute(builder: (context) {
+                  return  PreviewBook(reservation: _reservation);
+                }),
               );
             }
-
           },
           child: Text("Aperçu"),
         ),

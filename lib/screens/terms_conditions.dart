@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rpchbooking/utils/terms_and_condition.dart';
 
 class TermsAndConditions extends StatefulWidget {
   const TermsAndConditions({Key? key}) : super(key: key);
@@ -16,12 +17,15 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
         title: Text("Terms & Conditions"),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
-      body: ListView.builder(itemBuilder: (context, index) {
+      body: ListView.builder(
+          itemCount: conditions.length,
+          itemBuilder: (context, index) {
+        final condition = conditions[index];
         return ListTile(
-          title: Text("Mode payement"),
-          subtitle: Text("C'est ici la manière dont vous allez proceder pour payer une réservation"),
+          title: Text(condition["entete"]!),
+          subtitle: Text(condition["contenu"]!),
         );
-      }, itemCount: 5),
+      }),
     );
   }
 }

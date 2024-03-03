@@ -1,26 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rpchbooking/models/chambre.dart';
 import 'package:rpchbooking/models/hotel.dart';
+import 'package:rpchbooking/models/reservation.dart';
 import 'package:rpchbooking/models/user.dart';
 import 'package:rpchbooking/providers/chambre.dart';
 import 'package:rpchbooking/providers/hotel.dart';
 import 'package:rpchbooking/providers/reservation.dart';
+import 'package:rpchbooking/screens/books.dart';
 
 class PreviewBook extends StatefulWidget {
-  const PreviewBook({Key? key}) : super(key: key);
+  const PreviewBook({Key? key, required this.reservation}) : super(key: key);
+  final ReservationModel reservation;
 
   @override
   State<PreviewBook> createState() => _PreviewBookState();
 }
 
 class _PreviewBookState extends State<PreviewBook> {
-  //User user = new User(id: id, email: email, name: name, photo: photo);
+
+  final db = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
-    //print(context.watch<HotelProvider>().hotel);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,20 +41,20 @@ class _PreviewBookState extends State<PreviewBook> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image: AssetImage(
-                        context.watch<ReservationProvider>().chambre.images[0]
+                    image: NetworkImage(
+                        widget.reservation.chambre["image"]
                         //"https://images.trvl-media.com/lodging/17000000/16280000/16271500/16271457/66191826.jpg?impolicy=resizecrop&rw=1200&ra=fit"
                     ),
                     fit: BoxFit.cover,
                   )
               ),
             ),
-            _buildInfoReservation('Nom de l\'hôtel', context.watch<ReservationProvider>().hotel.nom),
-            _buildInfoReservation('Chambre', context.watch<ReservationProvider>().chambre.type),
-            _buildInfoReservation('Dates', context.watch<ReservationProvider>().dates.join(" - ")),
-            _buildInfoReservation('Nombre de jours', context.watch<ReservationProvider>().jours.toString()),
-            _buildInfoReservation('Prix par nuit', '\$${context.watch<ReservationProvider>().chambre.prix['usd']}'),
-            _buildInfoReservation('Prix total', '\$${context.watch<ReservationProvider>().toMap()['montant']}'),
+            //_buildInfoReservation('Nom de l\'hôtel', widget.reservation.hotel["nom"]),
+            _buildInfoReservation('Chambre', widget.reservation.chambre["type"]),
+            _buildInfoReservation('Dates', widget.reservation.dates.join(" - ")),
+            _buildInfoReservation('Nombre de jours', widget.reservation.jours.toString()),
+            _buildInfoReservation('Prix par nuit', '\$${widget.reservation.prix_unitaire['usd']}'),
+            _buildInfoReservation('Prix total', '\$${widget.reservation.montant["usd"]}'),
           ],
         ),
       ),
@@ -63,7 +67,18 @@ class _PreviewBookState extends State<PreviewBook> {
           color: Colors.white70,
         ),
         child: FilledButton.icon(
-          onPressed: (){}, icon: Icon(Icons.book), label: Text("Réserver Maintenant"),
+          onPressed: (){
+            final Map<String, dynamic> book = widget.reservation.toMap();
+            book.remove("id");
+            print(book);
+            db.collection("reservations").add(book).then((documentSnapshot){
+              print("Added Data with ID: ${documentSnapshot.id}");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>Books()),
+              );
+            });
+          }, icon: Icon(Icons.book), label: Text("Réserver Maintenant"),
           style: const ButtonStyle(
           ),
         ),

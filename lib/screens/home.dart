@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,6 @@ class _HomeState extends State<Home> {
     super.initState();
     db.collection("hotels").get().then(
           (querySnapshot) {
-        print("Successfully completed");
         for (var docSnapshot in querySnapshot.docs) {
           final _hotel = HotelModel(
             id: docSnapshot.id,
@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
           setState(() {
             _hotels.add(_hotel);
           });
-          print(docSnapshot.data());
+          //print(docSnapshot.data());
         }
       },
       onError: (e) => print("Error completing: $e"),
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage(
-                    "assets/images/hotel.jpg"
+                    "assets/images/rpch-logo.png"
                       //"https://images.trvl-media.com/lodging/17000000/16280000/16271500/16271457/66191826.jpg?impolicy=resizecrop&rw=1200&ra=fit"
                   ),
                 )
@@ -119,8 +119,8 @@ class _HomeState extends State<Home> {
                   MaterialPageRoute(builder: (context) => Books()),
                 );
               },
-            ),
-            ListTile(
+            ) ,
+            FirebaseAuth.instance.currentUser?.email == "stephanebazebibouta@gmail.com" ?  ListTile(
               leading: Icon(Icons.admin_panel_settings),
               title: Text("Administration"),
               onTap: (){
@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
                   MaterialPageRoute(builder: (context) => AdminHotel()),
                 );
               },
-            ),
+            ): SizedBox(),
             ListTile(
               leading: Icon(Icons.security_rounded),
               title: Text("Terms & Conditions"),
@@ -162,7 +162,7 @@ class _HomeState extends State<Home> {
                 itemCount: _hotels.length,
                 itemBuilder: (context, index) {
                 final _hotel = _hotels[index];
-                print(_hotel);
+                //print(_hotel);
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: GestureDetector(
@@ -189,8 +189,6 @@ class _HomeState extends State<Home> {
               children: _hotels.map((e){
                 return GestureDetector(
                   onTap: (){
-                    context.read<HotelProvider>().updateHotel(newHotel: e);
-                    context.read<ReservationProvider>().setHotel(e);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => DetailHotel(hotel: e,)),

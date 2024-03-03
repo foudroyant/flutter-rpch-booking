@@ -8,7 +8,7 @@ class HotelProvider extends ChangeNotifier {
   void updateHotel({
     required HotelModel newHotel
 }){
-    hotel = newHotel;
+    this.hotel = newHotel;
     notifyListeners();
   }
 }

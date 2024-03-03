@@ -25,14 +25,13 @@ class _DetailHotelState extends State<DetailHotel> {
   final db = FirebaseFirestore.instance;
   List<ChambreModel> _chambres = chambres;
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(widget.hotel.toMap());
     db.collection("hotels").doc(widget.hotel.id).collection("chambres").get().then(
           (querySnapshot) {
-        print("Successfully completed");
         for (var docSnapshot in querySnapshot.docs) {
           final _chambre = ChambreModel(
             id: docSnapshot.id,
@@ -43,8 +42,10 @@ class _DetailHotelState extends State<DetailHotel> {
             type: docSnapshot.data()["type"],
             capacite: docSnapshot.data()["capacite"],
           );
-          chambres.add(_chambre);
-          print(docSnapshot.data());
+          setState(() {
+            _chambres.add(_chambre);
+          });
+          //print(docSnapshot.data());
         }
       },
       onError: (e) => print("Error completing: $e"),
@@ -53,7 +54,6 @@ class _DetailHotelState extends State<DetailHotel> {
 
   @override
   Widget build(BuildContext context) {
-    //print(context.watch<HotelProvider>().hotel);
 
     return Scaffold(
       appBar: AppBar(
@@ -142,18 +142,18 @@ class _DetailHotelState extends State<DetailHotel> {
                 scrollDirection: Axis.horizontal,
                 itemCount: _chambres.length,
                 itemBuilder: (context, index) {
-                  final ChambreModel _chambre = chambres[index];
+                  final ChambreModel _chambre = _chambres[index];
                   //print(_chambre.toMap());
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: GestureDetector(
                       child: ChambreCard(_chambre),
                       onTap: (){
+                        context.read<HotelProvider>().updateHotel(newHotel: widget.hotel);
                         context.read<ChambreProvider>().updateChambre(newChambre: _chambre);
-                        context.read<ReservationProvider>().setChambre(_chambre);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => DetailChambre(chambre: _chambre,)),
+                          MaterialPageRoute(builder: (context) => DetailChambre(chambre: _chambre, hotel: widget.hotel,)),
                         );
                       },
                     ),

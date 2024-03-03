@@ -1,16 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:rpchbooking/providers/chambre.dart';
 import 'package:rpchbooking/providers/hotel.dart';
 import 'package:rpchbooking/providers/reservation.dart';
-import 'package:rpchbooking/screens/administration_hotels.dart';
-import 'package:rpchbooking/screens/authentification.dart';
-import 'package:rpchbooking/screens/books.dart';
-import 'package:rpchbooking/screens/details_chambre.dart';
-import 'package:rpchbooking/screens/details_hotel.dart';
+import 'package:rpchbooking/screens/Onboarding.dart';
 import 'package:rpchbooking/screens/home.dart';
-import 'package:rpchbooking/screens/preview_book.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +17,12 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
 
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
+
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  final prefs = await SharedPreferences.getInstance();
+  final onboarding = prefs.getBool("onboarding") ?? false;
+
   FirebaseApp app = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -36,17 +37,17 @@ void main() async{
     }*/
   //}
 
-  runApp(const MyApp());
+  runApp(MyApp(onboarding: onboarding,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  final bool onboarding;
+  const MyApp({super.key, this.onboarding=false});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
+    FlutterNativeSplash.remove();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => HotelProvider(),),
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'RPCH',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           appBarTheme: AppBarTheme(
@@ -62,7 +64,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: AuthenticationWrapper(),
+        home: onboarding ? AuthenticationWrapper() : Onboarding() //AuthenticationWrapper(),
       ),
     );
   }
@@ -88,8 +90,12 @@ class AuthenticationWrapper extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("RPCH-Booking")
+                    Text("RPCH-BOOKING", style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),)
                   ],
                 ),
               );
