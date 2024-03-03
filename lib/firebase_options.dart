@@ -71,6 +71,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'rpch-booking-49ca9.appspot.com',
     androidClientId: '731810484924-fslfrs0n4g48o4e96uorjeli1gunhirr.apps.googleusercontent.com',
     iosClientId: '731810484924-b09gpgi3nd9fp6o4scnmltvkik1ugv07.apps.googleusercontent.com',
-    iosBundleId: 'com.rpch.rpchbooking',
+    iosBundleId: 'com.bambyno.rpchbooking',
   );
 }
